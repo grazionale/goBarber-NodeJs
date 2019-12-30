@@ -1,0 +1,51 @@
+Sequelize - ORM banco de dados
+yarn add sequelize
+yarn add sequelize-cli -D
+npx sequelize init
+  - Arrastar as pastas criadas para os destinos mais adequados. config para src, models para views, migrations e sedders para database
+  - Alterar nome do config/config.json para database.js
+  - criar um arquivo .sequelizerc na raiz para configurar esses novos caminhos de pastas
+Ex de comando: npx sequelize migration:create --name=create-users
+  - Apagar o conteúdo e criar uma nova configuração no arquivo de configurações database.js
+  - Dependendo do banco de dados que será utilizado, é necessário instalar um
+  pacote, neste caso, usamos o postgress( yarn add pg )
+  - no arquivo models/index.js remover a linha da variável de ambiente, e informar
+  o novo caminho de configuração na linha 'const config = ...'
+    const config = require('../../config/database')
+    - Remover o IF ELSE e deixar somente o conteudo do Else
+      'sequelize = new Sequelize(config.database, config.username, config.password, config)'
+
+Rodando postgres com Docker
+docker run --name database -p 5432:5432 -d -t kartoza/postgis
+-p para fazer redirecionamento da porta
+-d para rodar em background
+-t para passar o nome da imagem
+
+Criando migration
+- npx sequelize migration:create --name=create-appointments
+
+Rodando migration
+- npx sequelize db:migrate
+
+---------------------
+bcryptjs - para realizar criptografia de senhas
+-yarn add bcryptjs
+
+-------------------
+multer - para fazer importações para a aplicação
+-yarn add multer
+
+-------------------
+express-session - utilizado para trabalhar com sessões.
+yarn add express-session
+
+------------------
+yarn add session-file-store - serve para guardar sessões em arquivos físicos. Mas é recomendado utilizar Redis (connect redis) ou no próprio banco de dados
+
+----------------
+yarn add connect-flash - serve para criar mensagens de error, sucess, etc
+
+---------------
+flatpicker - biblitoeca de calendário
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
